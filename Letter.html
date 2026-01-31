@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Letter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Museo-style serif for titles and Montserrat for labels -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --burgundy: #93032E;
+            --night: #151515;
+            --cream: #F2EBE3;
+        }
+
+        body {
+            background-color: var(--night);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 30px 15px;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Scalloped Edge Letter Background */
+        .letter-container {
+            background-color: var(--cream);
+            width: 100%;
+            max-width: 450px;
+            padding: 50px 30px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            /* Authentic Scalloped Border */
+            --mask: radial-gradient(10px at 10px 10px, #0000 98%, #000) -10px -10px;
+            mask: var(--mask);
+            -webkit-mask: var(--mask);
+        }
+
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--burgundy);
+            font-size: 2.4rem;
+            text-align: center;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .field-row {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
+
+        .field-label {
+            color: var(--burgundy);
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            width: 50px;
+        }
+
+        .field-value {
+            font-family: 'Dancing Script', cursive;
+            color: var(--burgundy);
+            font-size: 1.6rem;
+            border-bottom: 1px solid var(--burgundy);
+            flex-grow: 1;
+            margin-left: 5px;
+            padding-left: 10px;
+            line-height: 1.2;
+        }
+
+        /* Recreating the Postage Stamps from the Image */
+        .stamps-row {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: -60px;
+            margin-bottom: 30px;
+        }
+
+        .postage-stamp {
+            width: 65px;
+            height: 85px;
+            background: white;
+            border: 2px solid var(--burgundy);
+            padding: 4px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 2px 2px 8px rgba(147, 3, 46, 0.15);
+        }
+
+        /* Scalloped edge for the tiny stamps */
+        .postage-stamp::before {
+            content: '';
+            position: absolute;
+            top: -4px; left: -4px; right: -4px; bottom: -4px;
+            border: 2px dotted white;
+            z-index: -1;
+        }
+
+        .stamp-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--burgundy);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .letter-body {
+            font-family: 'Dancing Script', cursive;
+            color: var(--burgundy);
+            font-size: 1.45rem;
+            line-height: 1.5;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        /* Wavy Postmark Lines */
+        .postmark-waves {
+            position: absolute;
+            bottom: 40px;
+            right: 20px;
+            width: 100px;
+            opacity: 0.4;
+        }
+
+        .pay-btn {
+            background-color: var(--burgundy);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 12px;
+            margin-top: 40px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(147, 3, 46, 0.3);
+        }
+
+        .pay-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        #qr-container {
+            display: none;
+            margin-top: 25px;
+            text-align: center;
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .qr-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .qr-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        .hugs-note {
+            font-size: 0.75rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 12px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="letter-container">
+        <h1 class="header-title">A Love Letter</h1>
+
+        <div class="field-row">
+            <span class="field-label">TO:</span>
+            <span class="field-value">Bhavya</span>
+        </div>
+        <div class="field-row">
+            <span class="field-label">FROM:</span>
+            <span class="field-value">Ishant</span>
+        </div>
+
+        <!-- Custom Stamps based on source image -->
+        <div class="stamps-row">
+            <!-- Heart Stamp -->
+            <div class="postage-stamp">
+                <svg viewBox="0 0 100 100" class="w-10 h-10 mt-2">
+                    <path d="M50 80c-15-10-30-22-30-38 0-10 8-18 18-18 5 0 10 3 12 7 2-4 7-7 12-7 10 0 18 8 18 18 0 16-15 28-30 38z" fill="#93032E"/>
+                    <!-- Leafy accents like original -->
+                    <path d="M25 35 Q 15 25 20 45" fill="none" stroke="#93032E" stroke-width="1.5" opacity="0.6"/>
+                    <path d="M75 35 Q 85 25 80 45" fill="none" stroke="#93032E" stroke-width="1.5" opacity="0.6"/>
+                    <circle cx="50" cy="30" r="2" fill="#93032E" opacity="0.5"/>
+                </svg>
+                <div class="stamp-label">Postage</div>
+            </div>
+        <div class="letter-body">
+            <p class="mb-4">Dear Bhavya,</p>
+            <p>
+                The time we spent together was so incredibly special, and I appreciate every single second of it more than words can say. Our day together was absolutely wonderful, it truly made me so happy.
+            </p>
+            <p class="mt-4">
+                I also want to tell you: please, there's absolutely no need to ever think twice about spending with me. Being with you is the greatest gift, and taking care of things for us is my genuine pleasure. Just focus on our memories and lots of lovee!
+            </p>
+        </div>
+
+        <!-- Date and Waves -->
+        <div class="mt-12 flex justify-between items-end">
+            <div class="date-text text-burgundy font-bold text-xl opacity-80" id="current-date">01/31</div>
+            
+            <!-- Postmark Waves -->
+            <svg class="postmark-waves" viewBox="0 0 100 40">
+                <path d="M0 10 Q 12.5 0 25 10 T 50 10 T 75 10 T 100 10" fill="none" stroke="#93032E" stroke-width="1"/>
+                <path d="M0 20 Q 12.5 10 25 20 T 50 20 T 75 20 T 100 20" fill="none" stroke="#93032E" stroke-width="1"/>
+                <path d="M0 30 Q 12.5 20 25 30 T 50 30 T 75 30 T 100 30" fill="none" stroke="#93032E" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <!-- Action Section -->
+        <button onclick="toggleQR()" class="pay-btn">
+            if you still want to pay 😔
+        </button>
+
+        <div id="qr-container">
+            <span class="hugs-note">I'd prefer a hug instead, but here you go...</span>
+            <div class="qr-card">
+                <p class="text-[10px] text-gray-400 mb-3 uppercase tracking-widest font-bold">Scan to Pay Ishant</p>
+                <img src="qr.jpg" alt="Payment QR" class="qr-image">
+                <p class="text-[9px] mt-2 text-gray-500 font-semibold">singhishant@pingpay</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update the date to today
+        const now = new Date();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        document.getElementById('current-date').textContent = `${month}/${day}`;
+
+        function toggleQR() {
+            const container = document.getElementById('qr-container');
+            const isHidden = window.getComputedStyle(container).display === 'none';
+            
+            if (isHidden) {
+                container.style.display = 'block';
+                setTimeout(() => {
+                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            } else {
+                container.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
